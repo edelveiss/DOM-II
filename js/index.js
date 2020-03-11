@@ -94,6 +94,22 @@ body.addEventListener("keyup", event => {
         document.body.style.background = "";
     }
 });
+//-----------------------------------------------------
+//9.window, Adventure Awaits
+const imgFluid = document.querySelector('.img-fluid');
+window.addEventListener("resize", () => {
+    imgFluid.src = "img/paris.jpg";
+})
+
+//GreenSock Animation
+var tl = gsap.timeline();
+
+imgFluid.addEventListener("click", event => {
+    // gsap.to(imgFluid, { x: 500, scale: 2, rotation: 360, opacity: 0.5, duration: 3 });
+    tl.to(imgFluid, { x: 500, scale: 2, rotation: 360, opacity: 0.5, duration: 3 }).to(imgFluid, { x: 0, scale: 1, opacity: 1, duration: 3, rotation: -360 });;
+
+})
+
 
 //-------------------------------------------------------
 //9.class intro
@@ -167,3 +183,46 @@ document.addEventListener("drop", function(event) {
         event.target.appendChild(dragged);
     }
 }, false);
+
+//Additional practice with NodeList and HTML Collection
+const a = document.getElementsByTagName('a');
+console.log(a);
+const gallery = document.createElement('a');
+gallery.classList.add('nav-link');
+gallery.textContent = "Gallery";
+
+const login = document.createElement("a");
+login.classList.add('nav-link');
+login.textContent = "Login";
+// document.querySelector('nav').append(login);
+
+const nav = document.querySelector('nav');
+nav.insertBefore(gallery, nav.children[2]);
+nav.append(login);
+
+
+const a1 = document.getElementsByTagName('a');
+console.log("this is new a ", a1);
+const aArr = Array.from(a1).map(element => element.style.color = "green");
+
+//--------------------------------------------
+// Stop the navigation items from refreshing the page by using `preventDefault()`
+
+a1[2].addEventListener("click", (event) => {
+    event.preventDefault();
+    console.log("stopped the Gallery link");
+});
+
+//-------------------------------------------------------
+//Nest two similar events somewhere in the site and prevent the event propagation properly
+
+const textContentGr = document.querySelector(".text-content");
+console.log(textContentGr);
+console.log(textContentGr.children[0]);
+textContentGr.addEventListener("click", () => {
+    textContentGr.style.background = "orange";
+});
+textContentGr.children[0].addEventListener("click", (e) => {
+    textContentGr.children[0].style.background = "brown";
+    e.stopPropagation();
+})
