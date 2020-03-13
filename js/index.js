@@ -105,8 +105,9 @@ window.addEventListener("resize", () => {
 var tl = gsap.timeline();
 
 imgFluid.addEventListener("click", event => {
-    // gsap.to(imgFluid, { x: 500, scale: 2, rotation: 360, opacity: 0.5, duration: 3 });
-    tl.to(imgFluid, { x: 500, scale: 2, rotation: 360, opacity: 0.5, duration: 3 }).to(imgFluid, { x: 0, scale: 1, opacity: 1, duration: 3, rotation: -360 });;
+
+    tl.to(imgFluid, { x: 500, y: -100, scale: 2, rotation: 360, opacity: 0.5, duration: 3 })
+        .to(imgFluid, { x: 0, y: 0, scale: 1, opacity: 1, duration: 3, rotation: -360, exactly: "+=2" });;
 
 })
 
@@ -208,10 +209,21 @@ const aArr = Array.from(a1).map(element => element.style.color = "green");
 //--------------------------------------------
 // Stop the navigation items from refreshing the page by using `preventDefault()`
 
-a1[2].addEventListener("click", (event) => {
-    event.preventDefault();
-    console.log("stopped the Gallery link");
-});
+
+
+const links = document.querySelectorAll('.nav-link')
+links.forEach(link => {
+    link.addEventListener('click', (event) => {
+        event.stopPropagation();
+        console.log('stopped!')
+        link.style.color = 'blue'
+        event.preventDefault();
+
+    })
+})
+
+
+
 
 //-------------------------------------------------------
 //Nest two similar events somewhere in the site and prevent the event propagation properly
